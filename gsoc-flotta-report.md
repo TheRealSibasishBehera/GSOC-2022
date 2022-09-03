@@ -23,8 +23,11 @@
 **Project**: [Flotta - Reduce energy consumption](https://summerofcode.withgoogle.com/projects/_)
 
 ## Project Overview
+![WhatsApp Image 2022-09-02 at 3 49 11 AM](https://user-images.githubusercontent.com/95071627/188237779-3142b17c-2484-42eb-8888-e7aba2e9d608.jpeg)
+
+
 <div align="center">
-	<a href="https://github.com/aerogear/charmil/"><img src="https://drive.google.com/uc?export=view&id=1MYi9drQW2mi3TUdjBqyOM5KPAw90_LVU" alt="Charmil logo"></a>
+	<a href="[https://github.com/aerogear/charmil](https://drive.google.com/file/d/19MVLpipKDVJlD3MjWghAlJRwc0G02V7F/view?usp=sharing)/"><img src="[https://drive.google.com/uc?export=view&id=1MYi9drQW2mi3TUdjBqyOM5KPAw90_LVU](https://drive.google.com/file/d/19MVLpipKDVJlD3MjWghAlJRwc0G02V7F/view?usp=sharing)" alt="Flotta logo"></a>
 </div>
 <br />
 
@@ -54,14 +57,13 @@
     EdgeWorkload in flotta operated devices 
 
 - #### External PowerMeter Service:
-	- Charmil offers its own command-line interface (CLI) that allows developers to construct their new Charmil project with additional support for other templates, allowing them to focus on more essential aspects of their project.
+	- Using OS- tools can more or less give accurate information about the energy consumption by the operating system and the CPU.but in cases of             SBCs like Raspberry Pi, Nvidia Jetson Boards this is not sufficient as there are other factors as well which consume energy comparable to that           of CPU computation. Eg.Energy consumption by networking components like Ethernet, GPIO, UART, etc.
 
-	- This is the easiest way to incorporate Charmil into a project. 
+         - To overcome this problem and to get the complete power consumption, an external power meter needs to be integrated into the SBC
 
-	- As of now, the Charmil Generator CLI offers 3 commands:
-		- **init**: Initializes a project boilerplate by using the Charmil Starter Template.
-		- **add**: Adds a new command into the CLI.
-		- **crud**: Helps developers generate CRUD commands for their CLI.
+         -  For this we  would be using Tasmota EU plug V2 by Athom . This is based on tasmota-HLW8032 , providing control using MQTT,Web UI , HTTP.
+         
+	 - A Go Based Implementation is done for calling the API ,can converting the data into prometheus metrics , Further it os containerised by which            the Go application can be easily deployed as a EdgeWorkload
 
 - #### Thanos and Graphana Set Up for Observation and Visualisation of stats [On the way]:
 
@@ -70,14 +72,15 @@
 
 ## Communication and Work Management
 
-- The entire project is hosted on the [Charmil](https://github.com/aerogear/charmil/) repository under the Aerogear organization on Github.
-- Before implementing any new feature, we used [Github Discussions](https://docs.github.com/en/discussions) to discuss our approach with the mentors and other contributors.
-- In the Aerogear discord server, a dedicated channel was created for this project to settle any doubts, ideas, and comments for speedier coordination.
-- Some live coding/discussion sessions were conducted on the Aerogear discord server with the mentors and other contributors.
+- The entire project is hosted on the  repository under the Project FLotta on Github.
+- The procedure for implementaion comprised of dissusion with mentors over Slack and Google Meet calls
+- There were bi weekly meet with the Flotta team , where we discussed about the objective over implementaions , it was a great way to demonstrate our     work as well see other contributors and project members works
+- There were regular two short meets for unblocking and some code demonstration by mentors , 
+- The code review was done mostly on GitHub
 
 ## Primary features/components I worked on
 
- ### Charmil Generator CLI
+ ### Kepler Monitoring
 - **Charmil CRUD generator command**:
 	- With the help of the  `charmil crud`  command, developers can eliminate a lot of boilerplate in CLIs containing multiple services that perform standard CRUD operations.
 	- Using a set of pre-defined templates, this command generates CRUD command packages in the directory specified by the  `crudpath`  flag as well as its corresponding language file in the directory specified by the  `localepath`  flag.  
