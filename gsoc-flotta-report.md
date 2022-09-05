@@ -65,9 +65,12 @@
          
 	 - A Go Based Implementation is done for calling the API ,can converting the data into prometheus metrics , Further it os containerised by which            the Go application can be easily deployed as a EdgeWorkload
 
-- #### Thanos and Graphana Set Up for Observation and Visualisation of stats [On the way]:
+- #### Thanos and Graphana Set Up for Observation and Visualisation of stats [On the way ....]:
 
-	- 
+	- Thanos provides a global query view, high availability, data backup with historical, cheap data access as its core features in a single binary           which is a great way to access the metrics in workloads
+	- We are trying to deploy the Thanos receiver and querier out side the edge device , which can be the data centre hosting the operator and somewhere else 
+	- currently the testing is done with help of flotta-dev-cli , there are some issues which we found on the way , due to metrics cant get exposed ouside the workload
+	- I am trying to work with the team to fix it and have a alternative for that
 
 
 ## Communication and Work Management
@@ -80,13 +83,13 @@
 
 ## Primary features/components I worked on
 
- ### Kepler Monitoring
+ ### Power Monitoring in Flotta
 - **Charmil CRUD generator command**:
 	- With the help of the  `charmil crud`  command, developers can eliminate a lot of boilerplate in CLIs containing multiple services that perform standard CRUD operations.
 	- Using a set of pre-defined templates, this command generates CRUD command packages in the directory specified by the  `crudpath`  flag as well as its corresponding language file in the directory specified by the  `localepath`  flag.  
 	- These generated files can then be modified by developers to fit their own needs.
 
-### Charmil Core
+### Workloads Metric Management
 - **Config Management Package**:
 	- The Charmil Config package offers a convenient mechanism for both host and plugin developers to manage configurations in their CLI applications.
 	-   Helps in maintaining all available configurations in a single, centralized local config file.
@@ -94,56 +97,55 @@
 	-   Provides the plugin developers with functionality to load/save their CLI configurations from/to the host CLI local config file with ease.
 
 
-## Other Contributions
+### Issues Faced
+- **Rasberi Pi**:
+         - The idea was to test the workloads developed throughout the GSoC period ,in a environment where the power consumption of the CPU components              and other components were comparable
+         - But there was delay in the deliverly due to some reasons
+         - Further there was problem in booting up the desired environment
 
-- Some refactors on Starter templates
-- Feature Flags (Idea discontinued)
-- Making the RHOAS CLI repo use Charmil Validator
-- Provide POC on how Charmil can be used to integrate case study repositories
+-**Workload deployment**   
+  
+
+
+
 
 ## Future Scope of the project
-- Implementing the Charmil Command Registry component
-- Investigating shared authentication between host and plugin CLIs
+- Fixing the workload metric exposure  
+- Implementing the power mangement by turning of kernel modules in form of PowerSaving Modes
 
 ## Things I learned while contributing
 
-- **Learning new technologies on a regular basis**: In the past, I would solely work on technologies that I was previously familiar with and base all of my projects on them. During GSoC, I learned that we should select technologies/languages/dependencies that properly match our use case, not just those that we're familiar with. 
-- **Working with huge codebases**: I wasn't used to working with large codebases before, and it took me a while to get used to it.
+- **ds**: In the past, I would solely work on technologies that I was previously familiar with and base all of my projects on them. During GSoC, I learned that we should select technologies/languages/dependencies that properly match our use case, not just those that we're familiar with. 
+- **Large Codebase**: I wasn't used to working with large codebases before, and it took me a while to get used to it.
 - Debugging large codes, identifying the cause, and fixing it. Also got to learn about some debugging tools.
-- **Developer Workflow**: Got familiar with the iterative process of first `Picking an issue` ⮕ `Having discussions around it` ⮕ `Implementing it` ⮕ `Creating a PR` ⮕ `Asking for Reviews` ⮕ `Applying suggestions based on reviews` ⮕ `Getting it merged`.
-- Adapting with contributors across different timezones.
-- Understanding, reviewing, and modifying others contributors' code.
-- Implementing error handling wherever possible in code, to assist users in determining the source of any issue.
+- **Importance of Ease in Deploying Applications**:Got to know  a lot about how good documentation articles and blogposts can make the user as well as developers experience of using the application so much easier
+- Understood using Yaml , Makefiles and Dockerfiles for making things easier  
 - **Writing clean and well-documented code**: Prior to GSoC, I had never given much thought to code quality. But after working with my mentors, I realized that it is the most significant and vital characteristic of any excellent codebase. 
+- **Importance of Communication **
+- Prior to Gsoc I had rarely collaborated with developers from over the world . During GSoC I understood the importance of communication which is important in expressing as well as acknoweldgeing a idea . I also had a good idea on how developers even from diffrent timezones collaborate to turn a idea into a implementation 
 
 ## Acknowledgements
 I would like to express my heartfelt gratitude to:
 
--   All my mentors: Wojciech Trocki ([@wtrocki](https://github.com/wtrocki)),  Dimitri Saridakis ([@dimakis](https://github.com/dimakis)),  Jack Delahunt ([@jackdelahunt](https://github.com/jackdelahunt)), JJ Kiely ([@jjkiely](https://github.com/jjkiely)), Ramakrishna Pattnaik ([@rkpattnaik780](https://github.com/rkpattnaik780)) and Maksym Vavilov ([@makslion](https://github.com/makslion)), for always believing in me and devoting time to provide impeccable guidance and motivation while contributing.
--   Ankit Hans ([@ankithans](https://github.com/ankithans)) for being an amazing collaborator throughout this journey.
+-   All my mentors: Eloy Coto ([@eloycoto](https://github.com/eloycoto)),  Piotr Kliczewski ([@pkliczewski](https://github.com/pkliczewski)),  Gloria Ciavarrini ([@gciavarrini](https://github.com/gciavarrini)), Moti Asayag ([@masayag](https://github.com/masayag))
+-   Deepandra Singh and Ahmad Ateya ([@ahmadateya](https://github.com/ahmadateya)) for being an amazing collaborator throughout this journey.
 -   The entire JBoss Community for their welcoming support and assistance.
 
 ## Important Links
  
- - [GSoC Project](https://summerofcode.withgoogle.com/projects/#6059989371715584)
- - [GitHub Repository](https://github.com/aerogear/charmil/)
+ - [GSoC Project](https://summerofcode.withgoogle.com/projects/#)
+ - [GitHub Repository]([https://github.com/aerogear/charmil/](https://github.com/project-flotta))
  - [Documentation](https://aerogear.github.io/charmil/docs/)
  - Links to Work Done in the project:
-	 - [aerogear/charmil](https://github.com/aerogear/charmil)
+	 - [powermeter](https://github.com/aerogear/charmil)
 		 - Commits: [Link](https://github.com/aerogear/charmil/commits?author=namit-chandwani)
 		 - Pull Requests: [Link](https://github.com/aerogear/charmil/pulls?q=is%3Apr+author%3Anamit-chandwani)
 		 - Discussions: [Link](https://github.com/aerogear/charmil/discussions?discussions_q=author%3Anamit-chandwani)
-	 - [aerogear/charmil-starter](https://github.com/aerogear/charmil-starter)
+	 - [kepler](https://github.com/aerogear/charmil-starter)
 		 - Commits: [Link](https://github.com/aerogear/charmil-starter/commits?author=namit-chandwani)
 		 - Pull Requests: [Link](https://github.com/aerogear/charmil-starter/pulls?q=is%3Apr+author%3Anamit-chandwani)
-	 - [aerogear/charmil-host-example](https://github.com/aerogear/charmil-host-example)
+	 - [powertop-monitoring](https://github.com/aerogear/charmil-host-example)
 		 - Commits: [Link](https://github.com/aerogear/charmil-host-example/commits?author=namit-chandwani)
 		 - Pull Requests: [Link](https://github.com/aerogear/charmil-host-example/pulls?q=is%3Apr+author%3Anamit-chandwani)
-	 - [aerogear/charmil-plugin-example](https://github.com/aerogear/charmil-plugin-example)
-		 - Commits: [Link](https://github.com/aerogear/charmil-plugin-example/commits?author=namit-chandwani)
-		 - Pull Requests: [Link](https://github.com/aerogear/charmil-plugin-example/pulls?q=is%3Apr+author%3Anamit-chandwani)
-	 - [redhat-developer/app-services-cli](https://github.com/redhat-developer/app-services-cli)
-		 - Commits: [Link](https://github.com/redhat-developer/app-services-cli/commits?author=namit-chandwani)
-		 - Pull Requests: [Link](https://github.com/redhat-developer/app-services-cli/pulls?q=is%3Apr+author%3Anamit-chandwani)
      
      
