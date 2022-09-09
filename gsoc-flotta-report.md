@@ -6,10 +6,9 @@
 
  - [Student Developer Info](#student-developer-info)
  - [Project Overview](#project-overview)
-	 - [Components of Charmil](#components-of-charmil)
  - [Communication and Work Management](#communication-and-work-management)
  - [Primary features/components I worked on](#primary-featurescomponents-i-worked-on)
- - [Other Contributions](#other-contributions)
+ - [Issues Faced](#issues-faced)
  - [Future Scope of the project](#future-scope-of-the-project)
  - [Things I learned while contributing](#things-i-learned-while-contributing)
  - [Acknowledgements](#acknowledgements)
@@ -23,13 +22,6 @@
 **Project**: [Flotta - Reduce energy consumption](https://summerofcode.withgoogle.com/projects/_)
 
 ## Project Overview
-![WhatsApp Image 2022-09-02 at 3 49 11 AM](https://user-images.githubusercontent.com/95071627/188237779-3142b17c-2484-42eb-8888-e7aba2e9d608.jpeg)
-
-
-<div align="center">
-	<a href="[https://github.com/aerogear/charmil](https://drive.google.com/file/d/19MVLpipKDVJlD3MjWghAlJRwc0G02V7F/view?usp=sharing)/"><img src="[https://drive.google.com/uc?export=view&id=1MYi9drQW2mi3TUdjBqyOM5KPAw90_LVU](https://drive.google.com/file/d/19MVLpipKDVJlD3MjWghAlJRwc0G02V7F/view?usp=sharing)" alt="Flotta logo"></a>
-</div>
-<br />
 
 - Project Flotta is designed to manage containerized workload on small-footprint devices found on the edges of networks by managing the lifecycle of 
   edge-focused operating systems and securing connectivity between K8s/OCP and the edge
@@ -39,113 +31,119 @@
 - For this reason, monitoring the power and performance is important. For this we used diffrent approaches go get a view of things
 
 
+- Project Flotta is designed to manage containerized workload on small-footprint devices found on the edges of networks by managing the lifecycle of 
+  edge-focused operating systems and securing connectivity between K8s/OCP and the edge
+
+- Flotta-device agent is handling all the workloads on small factor SBC(raspberryPi, Nvidia Jetson, etc) which can be located anywhere, where the power cannot be reliable, Some devices are running on moving devices or powered by solar panels, where power consumption is a key factor.
+
+- For this reason, monitoring the power and performance is important. For this, we used different approaches to get a view of power consumption in edge devices
+
+
 ### Components of Power Management
 
 - #### Kepler Monitoring:
 
-	- Kepler (Kubernetes Efficient Power Level Exporter) uses eBPF to probe energy related system stats and exports as Prometheus metrics 
+	- Kepler (Kubernetes Efficient Power Level Exporter) uses eBPF to probe energy-related system stats and exports as Prometheus metrics 
 	- eBPF is a kernel technology (fully available since Linux 4.4). It lets programs run without needing to add additional modules or modify the kernel source code
     You can conceive of it as a lightweight, sandboxed virtual machine (VM) within the Linux kernel
   - It was primarily designed for cluster setup using the cluster API, like k8s 
-  - Support for only container setup was added . As project Flotta uses , Podman for deploying edge workloads ,a Podman and Cluster interface was setup for that 
+  - Support for only container setup was added. As project Flotta uses, Podman for deploying edge workloads, a Podman and Cluster interface was set up for that 
   
 - #### Powertop Tunings:
 
-	- PowerTOP is a terminal-based diagnosis tool developed by Intel that helps you to monitor power usage by programs running on a Linux system when it 
-   is not plugged on to a power source , which makes it suitable for unreliable power sources
-	- For integrating it with flotta a Go - based implementation was used , which was later containerised with help of Docker , and can be deployed as a 
+	- PowerTOP is a terminal-based diagnosis tool developed by Intel using RAPL protocol that helps you to monitor the power usage by programs running on a Linux system when it 
+   is not plugged onto a power source, which makes it suitable for unreliable power sources
+	- For integrating it with flotta a Go-based implementation was used, which was later containerized with the help of Docker, and can be deployed as a 
     EdgeWorkload in flotta operated devices 
 
 - #### External PowerMeter Service:
-	- Using OS- tools can more or less give accurate information about the energy consumption by the operating system and the CPU.but in cases of             SBCs like Raspberry Pi, Nvidia Jetson Boards this is not sufficient as there are other factors as well which consume energy comparable to that           of CPU computation. Eg.Energy consumption by networking components like Ethernet, GPIO, UART, etc.
+	- Using OS- tools can more or less give accurate information about the energy consumption by the operating system and the CPU.but in cases of             SBCs like Raspberry Pi, and Nvidia Jetson Boards this is not sufficient as there are other factors as well which consume energy comparable to that of CPU computation. Eg. Energy consumption by networking components like Ethernet, GPIO, UART, etc.
 
          - To overcome this problem and to get the complete power consumption, an external power meter needs to be integrated into the SBC
 
-         -  For this we  would be using Tasmota EU plug V2 by Athom . This is based on tasmota-HLW8032 , providing control using MQTT,Web UI , HTTP.
+         -  For this, we would be using Tasmota EU plug V2 by Athom. This is based on tasmota-HLW8032, providing control using MQTT, Web UI, and HTTP.
          
-	 - A Go Based Implementation is done for calling the API ,can converting the data into prometheus metrics , Further it os containerised by which            the Go application can be easily deployed as a EdgeWorkload
+	 - A Go Based Implementation is done for calling the API and can convert the data into Prometheus metrics, Further, it is containerized by which  the Go application can be easily deployed as an EdgeWorkload
 
 - #### Thanos and Graphana Set Up for Observation and Visualisation of stats [On the way ....]:
 
 	- Thanos provides a global query view, high availability, data backup with historical, cheap data access as its core features in a single binary           which is a great way to access the metrics in workloads
-	- We are trying to deploy the Thanos receiver and querier out side the edge device , which can be the data centre hosting the operator and somewhere else 
-	- currently the testing is done with help of flotta-dev-cli , there are some issues which we found on the way , due to metrics cant get exposed ouside the workload
-	- I am trying to work with the team to fix it and have a alternative for that
+	- We are trying to deploy the Thanos receiver and querier outside the edge device , which can be the data center hosting the operator and somewhere else 
+	- currently, the testing is done with help of flotta-dev-cli, there are some issues that we found on the way, due to metrics cant getting exposed outside the workload
+	- I am trying to work with the team to fix it and have an alternative for that
 
 
 ## Communication and Work Management
 
-- The entire project is hosted on the  repository under the Project FLotta on Github.
-- The procedure for implementaion comprised of dissusion with mentors over Slack and Google Meet calls
-- There were bi weekly meet with the Flotta team , where we discussed about the objective over implementaions , it was a great way to demonstrate our     work as well see other contributors and project members works
-- There were regular two short meets for unblocking and some code demonstration by mentors , 
+- The entire project is hosted on the repository under Project FLotta on Github.
+- The procedure for implementation comprised of discussion with mentors over Slack and Google Meet calls
+- There were bi-weekly meetings with the Flotta team, where we discussed the objective over implementations, it was a great way to demonstrate our     work as well as see other contributors and project member's works
+- There were regular two short meets for unblocking and some code demonstration by mentors, 
 - The code review was done mostly on GitHub
 
 ## Primary features/components I worked on
 
  ### Power Monitoring in Flotta
-- **Charmil CRUD generator command**:
-	- With the help of the  `charmil crud`  command, developers can eliminate a lot of boilerplate in CLIs containing multiple services that perform standard CRUD operations.
-	- Using a set of pre-defined templates, this command generates CRUD command packages in the directory specified by the  `crudpath`  flag as well as its corresponding language file in the directory specified by the  `localepath`  flag.  
-	- These generated files can then be modified by developers to fit their own needs.
+  
+  - I addressed the primary need for power consumption monitoring in flotta edgedevices at various level
+  - All the features Kepler , Powertop and Powermeter can now be deployed as edgeworkloads , which makes it much easier for user to deploy in the device worker depending on their use case
+  - The metrics can be easily exposed both as form of logs as well as stored in the device workers internal TSDB  
+
 
 ### Workloads Metric Management
-- **Config Management Package**:
-	- The Charmil Config package offers a convenient mechanism for both host and plugin developers to manage configurations in their CLI applications.
-	-   Helps in maintaining all available configurations in a single, centralized local config file.
-	-   Provides the host CLI developers with a set of methods to read/write configurations from/to a local config file.
-	-   Provides the plugin developers with functionality to load/save their CLI configurations from/to the host CLI local config file with ease.
+
+- Accesing the workloads outside the workloads through metrics is important for monitoring and obseravation as a user
+- For this Thanos receiver and querier can be easily set up by user using the configuration provided in the respective repositories of the projects 
 
 
 ### Issues Faced
-- **Rasberi Pi**:
-         - The idea was to test the workloads developed throughout the GSoC period ,in a environment where the power consumption of the CPU components              and other components were comparable
-         - But there was delay in the deliverly due to some reasons
-         - Further there was problem in booting up the desired environment
 
--**Workload deployment**   
+
+- **Raspberry Pi**   
+
+     - The idea was to test the workloads developed throughout the GSoC period, in an environment where the power consumption of the CPU components              and other components were comparable
+     -   But there was a delay in the delivery due to shortages reasons.
+          Further, there was a problem in booting up the desired environment
+
+
+
+- **Workload deployment**   
+
+     - the configuration for deploying the PowerMeter and powertop workloads with  Thanos and Graphana was ready but we faced some issues related to            podman which were unresolved previously.
+       So we intend to address those issues first, which would make it possible to run workloads with metrics 
   
-
 
 
 
 ## Future Scope of the project
 - Fixing the workload metric exposure  
-- Implementing the power mangement by turning of kernel modules in form of PowerSaving Modes
+- Implementing the power management by turning kernel modules in form of PowerSaving Modes
 
 ## Things I learned while contributing
 
-- **ds**: In the past, I would solely work on technologies that I was previously familiar with and base all of my projects on them. During GSoC, I learned that we should select technologies/languages/dependencies that properly match our use case, not just those that we're familiar with. 
+- **New Technology**: In the past, I would solely work on technologies that I was previously familiar with and base all of my projects on them. During GSoC, I learned that we should select technologies/languages/dependencies that properly match our use case, not just those that we're familiar with like Golang, BPF and prometheus metrics query DSL.
 - **Large Codebase**: I wasn't used to working with large codebases before, and it took me a while to get used to it.
-- Debugging large codes, identifying the cause, and fixing it. Also got to learn about some debugging tools.
-- **Importance of Ease in Deploying Applications**:Got to know  a lot about how good documentation articles and blogposts can make the user as well as developers experience of using the application so much easier
-- Understood using Yaml , Makefiles and Dockerfiles for making things easier  
-- **Writing clean and well-documented code**: Prior to GSoC, I had never given much thought to code quality. But after working with my mentors, I realized that it is the most significant and vital characteristic of any excellent codebase. 
-- **Importance of Communication **
-- Prior to Gsoc I had rarely collaborated with developers from over the world . During GSoC I understood the importance of communication which is important in expressing as well as acknoweldgeing a idea . I also had a good idea on how developers even from diffrent timezones collaborate to turn a idea into a implementation 
+- Debugging large codes, identifying the cause, and fixing it. Also got to learn about some debugging tools. At the same stage, Kepler was based on BPF, so learning how to debug BPF was a hard thing in this case
+- **Importance of Ease in Deploying Applications**:Got to know  a lot about how good documentation articles and blog posts can make the user as well as     developer's experience of using the application so much easier
+   Understood using Yaml, Makefiles, and Dockerfiles for making things easier  
+- **Writing clean and well-documented code**: Before GSoC, I had never given much thought to code quality. But after working with my mentors, I realized that it is the most significant and vital characteristic of any excellent codebase. 
+-  **Importance of Communication**: Before Gsoc I had rarely collaborated with developers from over the world. During GSoC, I understood the importance of communication which is important in expressing as well as acknowledging an idea. I also had a good idea of how developers even from different timezones collaborate to turn an idea into an implementation .
 
 ## Acknowledgements
 I would like to express my heartfelt gratitude to:
 
 -   All my mentors: Eloy Coto ([@eloycoto](https://github.com/eloycoto)),  Piotr Kliczewski ([@pkliczewski](https://github.com/pkliczewski)),  Gloria Ciavarrini ([@gciavarrini](https://github.com/gciavarrini)), Moti Asayag ([@masayag](https://github.com/masayag))
--   Deepandra Singh and Ahmad Ateya ([@ahmadateya](https://github.com/ahmadateya)) for being an amazing collaborator throughout this journey.
+-   Deepandra Singh([@dpshekhawat](https://github.com/dpshekhawat)) and Ahmad Ateya ([@ahmadateya](https://github.com/ahmadateya)) for being fantastic collaborators throughout this journey.
 -   The entire JBoss Community for their welcoming support and assistance.
 
 ## Important Links
  
  - [GSoC Project](https://summerofcode.withgoogle.com/projects/#)
- - [GitHub Repository]([https://github.com/aerogear/charmil/](https://github.com/project-flotta))
- - [Documentation](https://aerogear.github.io/charmil/docs/)
- - Links to Work Done in the project:
-	 - [powermeter](https://github.com/aerogear/charmil)
-		 - Commits: [Link](https://github.com/aerogear/charmil/commits?author=namit-chandwani)
-		 - Pull Requests: [Link](https://github.com/aerogear/charmil/pulls?q=is%3Apr+author%3Anamit-chandwani)
-		 - Discussions: [Link](https://github.com/aerogear/charmil/discussions?discussions_q=author%3Anamit-chandwani)
-	 - [kepler](https://github.com/aerogear/charmil-starter)
-		 - Commits: [Link](https://github.com/aerogear/charmil-starter/commits?author=namit-chandwani)
-		 - Pull Requests: [Link](https://github.com/aerogear/charmil-starter/pulls?q=is%3Apr+author%3Anamit-chandwani)
-	 - [powertop-monitoring](https://github.com/aerogear/charmil-host-example)
-		 - Commits: [Link](https://github.com/aerogear/charmil-host-example/commits?author=namit-chandwani)
-		 - Pull Requests: [Link](https://github.com/aerogear/charmil-host-example/pulls?q=is%3Apr+author%3Anamit-chandwani)
+ - [GitHub Repository](https://github.com/project-flotta)
+ - [Documentation]()
+-  [PowerMeter Repository](https://github.com/project-flotta/powermeter_integration/)
+-  [PowerTop Repository](https://github.com/project-flotta/powertop_monitoring)
+-  [Kepler Repository](https://github.com/project-flotta/kepler/pull/1)
+
      
      
