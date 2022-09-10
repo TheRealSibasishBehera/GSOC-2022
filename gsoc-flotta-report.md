@@ -140,10 +140,11 @@ I would like to express my heartfelt gratitude to:
  
  - [GSoC Project](https://summerofcode.withgoogle.com/projects/#)
  - [GitHub Repository](https://github.com/project-flotta)
- - [Documentation]()
 -  [PowerMeter Repository](https://github.com/project-flotta/powermeter_integration/)
 -  [PowerTop Repository](https://github.com/project-flotta/powertop_monitoring)
 -  [Kepler Repository](https://github.com/project-flotta/kepler/pull/1)
+
+THe documentaions are attached at the end of the readme files
 
      
      
