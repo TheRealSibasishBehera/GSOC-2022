@@ -144,7 +144,7 @@ I would like to express my heartfelt gratitude to:
 -  [PowerTop Repository](https://github.com/project-flotta/powertop_monitoring)
 -  [Kepler Repository](https://github.com/project-flotta/kepler/pull/1)
 
-THe documentaions are attached at the end of the readme files
+The documentaions are attached at the end of the readme files
 
      
      
