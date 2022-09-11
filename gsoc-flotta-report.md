@@ -139,8 +139,8 @@ I would like to express my heartfelt gratitude to:
 ## Important Links
  
 - [GitHub Repository](https://github.com/project-flotta)
--  [PowerMeter Repository](https://github.com/project-flotta/powermeter_integration/)
--  [PowerTop Repository](https://github.com/project-flotta/powertop_monitoring)
+-  [PowerMeter Repository](https://github.com/project-flotta/powermeter_integration/tree/flotta)
+-  [PowerTop Repository](https://github.com/project-flotta/powertop_monitoring/tree/flotta)
 -  [Kepler Repository](https://github.com/project-flotta/kepler/pull/1)
 
 The documentaions are attached at the end of the respective readme files
